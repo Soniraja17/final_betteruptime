@@ -13,12 +13,20 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+model User{
+  id String @id @default(uuid())
+  username String @unique
+  password String
+  website   Website[]
+}
 
 model Website {
   id  String @id @default(uuid())
   url String
-  timeAdded DateTime
+  user_id       String
+  time_Added DateTime
   ticks WebsiteTick[]
+  user          User    @relation(fields: [user_id], references: [id])
    
 }
 
@@ -36,6 +44,7 @@ model WebsiteTick{
   Website   Website @relation(fields:[website_id],references:[id])
   region_id String
   website_id String
+  createdAt DateTime @default(now())
 
 }
 
