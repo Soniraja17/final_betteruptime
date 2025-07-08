@@ -1,6 +1,7 @@
 import express from "express"
 import {prisma} from "store/client"
 import { authinput } from "./types.ts"
+import { authmiddleware } from "./middleware.ts";
  
 import jwt from 'jsonwebtoken';
 
@@ -11,7 +12,7 @@ const app= express()
 // Add middleware to parse JSON request bodies 
 app.use(express.json())
 
-app.post("/website", async(req,res)=>{
+app.post("/website", authmiddleware, async(req,res)=>{
     if (!req.body.url){
         res.status(411).json({})
         return
@@ -20,7 +21,7 @@ app.post("/website", async(req,res)=>{
         data:{
             url:req.body.url,
             time_Added:new Date(),
-            user_id: "temp-user-id" // You'll need to replace this with actual user ID from JWT
+            user_id: req.userid! // You'll need to replace this with actual user ID from JWT
         }
     })
     res.json({
@@ -29,8 +30,36 @@ app.post("/website", async(req,res)=>{
     
 })
 
-app.get("/status/:websiteId",(req,res)=>{
-    res.send("status/websiteId endpoint")
+app.get("/status/:websiteId",authmiddleware, async (req,res)=>{
+    const website= await prisma.website.findFirst({
+        where:{
+            user_id:req.userid!,
+            id:req.params.websiteId,
+        },
+        include:{
+            ticks:{
+                orderBy:[{
+                    createdAt:'desc'
+                }],
+                take:1
+            }
+        }
+    })
+    if(!website){
+        res.status(411).json({
+            message:"not found"
+        })
+        return
+    }
+
+    res.json({
+        website
+    })
+
+
+
+    
+    
     
 })
 
@@ -51,7 +80,7 @@ app.post("/user/signup",async(req,res)=>{
                 password:data.data.password
             }
         })
-        res.json({
+        res.json({ 
             id:user.id
         })
     }
