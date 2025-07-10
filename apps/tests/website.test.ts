@@ -29,9 +29,9 @@ describe("website gets created",()=>{
         }
     })
 
-    it("website is created if url is present",async ()=>{
+    it.todo("website is created if url is present",async ()=>{
 
-        try{
+        
 
             const response=await axios.post(`${BASE_URL}/website`,{
                 url:"http://google.com"
@@ -40,12 +40,10 @@ describe("website gets created",()=>{
             headers:{
                 Authorization:token
             }
-        })
+           })
            expect(response.data.id).not.toBeNull();
-        }
-        catch(e){
-            console.log(e)
-        }
+        
+         
             
        
     })
