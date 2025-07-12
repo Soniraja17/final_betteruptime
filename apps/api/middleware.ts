@@ -4,7 +4,7 @@ import  Jwt from 'jsonwebtoken';
 export function authmiddleware(req:Request,res:Response,next:NextFunction){
     const header=req.headers.authorization!;
     try{
-        let data=Jwt.verify(header,process.env.JWT_SECRECT!);
+        let data=Jwt.verify(header,process.env.JWT_SECRET!);
         req.userid=data.sub as string;
         next()
     }catch(e){

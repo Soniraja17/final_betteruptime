@@ -4,6 +4,7 @@ import { authinput } from "./types.ts"
 import { authmiddleware } from "./middleware.ts";
  
 import jwt from 'jsonwebtoken';
+import cors from "cors";
 
 
 
@@ -11,6 +12,7 @@ const app= express()
  
 // Add middleware to parse JSON request bodies 
 app.use(express.json())
+app.use(cors())
 
 app.post("/website", authmiddleware, async(req,res)=>{
     if (!req.body.url){
@@ -80,8 +82,11 @@ app.post("/user/signup",async(req,res)=>{
                 password:data.data.password
             }
         })
+        let token=jwt.sign({
+            sub:user.id
+        },process.env.JWT_SECRET || 'fallback-secret')
         res.json({ 
-            id:user.id
+            jwt: token
         })
     }
     catch(e){
@@ -96,7 +101,8 @@ app.post("/user/signup",async(req,res)=>{
 app.post("/user/signin",async(req,res)=>{
     const data=authinput.safeParse(req.body)
     if(!data.success){
-        res.status(403).send("")
+        console.log(data.error.toString());
+        res.status(403).send("data not successed")
         return;
     }
     let user= await prisma.user.findFirst({
@@ -105,6 +111,7 @@ app.post("/user/signin",async(req,res)=>{
         }
     })
     if(user?.password!=data.data.password){
+        console.log("Password mismatch");
         res.status(403).send("");
         return;
     }
@@ -117,6 +124,26 @@ app.post("/user/signin",async(req,res)=>{
 
    
 
+})
+
+app.get("/websites",authmiddleware,async(req,res)=>{
+    const websites=await prisma.website.findMany({
+        where:{
+            user_id:req.userid
+        },
+        include:{
+            ticks:{
+                orderBy:[{
+                    createdAt:"desc",
+                }],
+                take:1
+            }
+        }
+
+    })
+    res.json({
+        websites
+    })
 })
 
 

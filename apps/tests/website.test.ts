@@ -4,9 +4,10 @@ import { createUser } from "./testUtils"
 import { BACKEND_URL } from "./config"
 
 let BASE_URL="http://localhost:3000"
-let jwt:string,token:string
+ 
 
 describe("website gets created",()=>{
+    let jwt:string,token:string
     beforeAll(async()=>{
         const data=await createUser()
 
@@ -29,7 +30,7 @@ describe("website gets created",()=>{
         }
     })
 
-    it.todo("website is created if url is present",async ()=>{
+    it("website is created if url is present",async ()=>{
 
         
 
@@ -84,6 +85,7 @@ describe("fetch website",()=>{
         try{
 
             const websiteresponse=await axios.post(`${BACKEND_URL}/website`,{
+                url:"http://google.com"
     
             },{
                 headers:{
@@ -106,9 +108,10 @@ describe("fetch website",()=>{
 
     it("not able to fetch website with other user details.",async()=>{
 
-        try{
+        
 
             const websiteresponse=await axios.post(`${BACKEND_URL}/website`,{
+                 url:"http://google.com"
     
             },{
                 headers:{
@@ -121,10 +124,7 @@ describe("fetch website",()=>{
                 }
             })
             expect(false,"user is different")
-        }
-        catch(e){
-            console.log(e)
-        }
+        
     })
 
 })
