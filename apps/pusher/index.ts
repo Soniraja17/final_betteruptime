@@ -27,7 +27,7 @@ async function  main() {
 
 setInterval(()=>{
     main()
-},3*1000)
+},30*1000)
 
 
 main()

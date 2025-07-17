@@ -1,5 +1,5 @@
  
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
  import Link from 'next/link';
 import { 
   Monitor, 
@@ -21,7 +21,8 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
 import { BACKEND_URL } from '@/lib/utils';
-
+import Router, { useRouter } from 'next/navigation';
+ 
 interface Website {
   id: string;
   // name: string;
@@ -37,37 +38,76 @@ function Dashboard() {
     
   ]);
 
+const router=useRouter()
+
+
   const [showAddModal, setShowAddModal] = useState(false);
   const [newWebsite, setNewWebsite] = useState({
-  
-    url: ''
+    url: '',
   });
+ 
+  
+const fetchWebsites = async () => {
+  try {
+    const response = await axios.get(`${BACKEND_URL}/websites`, {
+      headers: {
+        Authorization: localStorage.getItem("token"),
+      },
+    });
+
+    setWebsites(
+      response.data.websites.map((w: any) => ({
+        id: w.id,
+        url: w.url,
+        status: w.ticks?.[0]?.status === "UP" ? "up" :
+                w.ticks?.[0] ? "down" : "checking",
+        responseTime: w.ticks?.[0]?.response_time_ms || "0",
+        lastChecked: w.ticks?.[0]?.createdAt || Date.now().toString(),
+      }))
+    );
+  } catch (error) {
+    console.error("Failed to fetch websites:", error);
+  }
+};
+
+// Run on first load
+useEffect(() => {
+  fetchWebsites();
+}, []);
+
 
 
  
 
-  const handleAddWebsite = (e: React.FormEvent) => {
+  const handleAddWebsite = async(e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!  !newWebsite.url) {
+    if (!newWebsite.url) {
       alert('Please fill in all fields');
       return;
     }
 
-    const website: Website = {
-      id: Date.now().toString(),
-      url: newWebsite.url,
-      status: 'up',
-      responseTime: '0ms',
-      lastChecked: 'Just now'
-    };
+  
 
-    axios.post(`${BACKEND_URL}/website`,{
-      url:newWebsite.url
+    const response= await  axios.post(`${BACKEND_URL}/website`,{
+      url: newWebsite.url
 
+    },{
+      headers:{
+        Authorization:localStorage.getItem("token")
+      }
     })
 
-    setWebsites([...websites, website]);
+    
+    
+    await fetchWebsites();
+     
+
+     
+
+
+
+     
     setNewWebsite({   url: '' });
     setShowAddModal(false);
   };
@@ -193,7 +233,7 @@ function Dashboard() {
                       <div>
                       
                         <div className="text-sm text-gray-400 flex items-center">
-                          <ExternalLink className="w-3 h-3 mr-1" />
+                          <ExternalLink onClick={() => router.push(`website/${website.id}`)} className="w-3 h-3 mr-1" />
                           {website.url}
                         </div>
                       </div>
@@ -222,7 +262,7 @@ function Dashboard() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                       <div className="flex items-center space-x-2">
                         <button className="text-gray-400 hover:text-blue-400 transition-colors">
-                          <Edit className="w-4 h-4" />
+                          <Edit   onClick={() => router.push(`website/${website.id}`)}  className="w-4 h-4" />
                         </button>
                         <button 
                           onClick={() => handleDeleteWebsite(website.id)}

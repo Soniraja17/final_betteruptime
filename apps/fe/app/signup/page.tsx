@@ -34,7 +34,7 @@ function SignUp() {
         router.push("/dashboard")
         // Fallback navigation
         if (typeof window !== 'undefined') {
-          window.location.href = "/dashboard"
+          window.location.href = "/signin"
         }
     }
     catch(e){
