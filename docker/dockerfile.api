@@ -1,0 +1,21 @@
+from oven/bun:1
+
+workdir /usr/src/app
+
+copy ./packages ./packages
+copy ./bun.lock ./bun.lock
+copy ./package.json ./package.json
+copy ./turbo.json ./turbo.json
+
+copy ./apps/api ./apps/api
+
+# run npm install
+ 
+
+# copy . .
+
+run bun install
+run bun run dbgenerate
+
+
+cmd ["bun","run","index.ts"]
