@@ -18,7 +18,7 @@
   "scripts": {
   "generate": "prisma generate --schema=../../packages/store/prisma/schema.prisma",
    
-  "start": "bun  index.ts"
+  "start": "bun run dist/index.js"
   }
 }
 
