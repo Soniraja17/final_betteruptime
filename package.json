@@ -8,6 +8,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "dbgenerate":"cd packages/store && npx prisma generate && cd ../..",
+     "migrate": "prisma migrate deploy",
     "start":"bun run dist/index.js"
   },
   "devDependencies": {
