@@ -14,5 +14,11 @@
     "redis": "^5.6.0",
      "store":"*",
     "redisstream":"*"
+  },
+  "scripts": {
+  "generate": "prisma generate --schema=../../packages/store/prisma/schema.prisma",
+  "migrate": "prisma migrate deploy",
+  "start": "bun  dist/index.ts"
   }
 }
+
