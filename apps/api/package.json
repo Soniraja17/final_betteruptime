@@ -20,7 +20,8 @@
     "zod": "^3.25.74"
   },
   "scripts": {
-    "build": "tsc",
-    "start": "bun dist/index.js"
+    "generate": "prisma generate --schema=../../packages/store/prisma/schema.prisma",
+  "build": "bun run generate && tsc",
+  "start": "bun run index.js"
   }
 }
