@@ -23,7 +23,7 @@
   },
   "scripts": {
   "generate": "prisma generate --schema=../../packages/store/prisma/schema.prisma",
-  "build": "bun prisma generate && tsc",
+ 
   "start": "bun  dist/index.ts"
   }
 }
