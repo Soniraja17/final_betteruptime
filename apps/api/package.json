@@ -17,11 +17,12 @@
     "cors": "^2.8.5",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
+    "store":"*",
     "zod": "^3.25.74"
   },
   "scripts": {
     "generate": "prisma generate --schema=../../packages/store/prisma/schema.prisma",
   "build": "bun run generate && tsc",
-  "start": "bun dist/index.js"
+  "start": "cd apps/api && bun dist/index.js"
   }
 }
