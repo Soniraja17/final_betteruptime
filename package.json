@@ -1,7 +1,7 @@
 {
   "name": "betteruptime",
   "private": true,
-  "module":"index.js",
+  "module":"index.ts",
   "scripts": {
     "build": "turbo run build",
     "dev": "turbo run dev",
@@ -10,7 +10,7 @@
     "check-types": "turbo run check-types",
     "dbgenerate":"cd packages/store && npx prisma generate && cd ../..",
     "migrate": "prisma migrate deploy",
-    "start":"bun index.js"
+    "start":"bun index.ts"
   },
   "devDependencies": {
     "bun-types": "^1.2.18",
