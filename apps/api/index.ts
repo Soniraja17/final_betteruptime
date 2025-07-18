@@ -49,7 +49,7 @@ app.get("/status/:websiteId",authmiddleware, async (req,res)=>{
     })
     if(!website){
         res.status(411).json({
-            message:"not found"
+            message:"not founded"
         })
         return
     }
@@ -118,7 +118,7 @@ app.post("/user/signin",async(req,res)=>{
     let token=jwt.sign({
         sub:user.id
     },process.env.JWT_SECRET || 'fallback-secret')
-    
+
     res.json({
         jwt: token
     })
