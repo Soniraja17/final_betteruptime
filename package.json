@@ -3,14 +3,14 @@
   "private": true,
   "module":"index.ts",
   "scripts": {
-    "build": "turbo run build",
+    "build": "turbo run build && npx prisma generate",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "check-types": "turbo run check-types",
     "dbgenerate":"cd packages/store && npx prisma generate && cd ../..",
     "migrate": "prisma migrate deploy",
-    "start": " bun apps/api/index.ts"
+    "start": " bun apps/api/index.ts && cd ../worker/intex.ts && cd ../pusher/index.ts"
   },
   "devDependencies": {
     "bun-types": "^1.2.18",
