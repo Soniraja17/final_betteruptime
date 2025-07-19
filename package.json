@@ -3,7 +3,7 @@
   "private": true,
   "module":"index.ts",
   "scripts": {
-    "build": "turbo run build && npx prisma generate",
+    "build": "turbo run build && cd packages/store && npx prisma generate && cd ../..",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
