@@ -1,22 +1,22 @@
-import { createClient } from "redis";
+import { createClient } from 'redis';
  
 
  
 
-const client = await createClient(
-  {
-  
-    username: process.env.USERNAME,
-    password:  process.env.PASSWORD,
+ 
+
+const client = createClient({
+    username: 'default',
+    password: 'P4chm7TomLJqVAKrR1TZfID5xeCjc2tG',
     socket: {
-        host: process.env.HOST,
+        host: 'redis-18374.c80.us-east-1-2.ec2.redns.redis-cloud.com',
         port: 18374
     }
-  }
-  
-)
-  .on("error", (err) => console.log("Redis Client Error", err))
-  .connect();
+});
+
+client.on('error', err => console.log('Redis Client Error', err));
+
+await client.connect();
 
   type websiteEvent={url:string,id :string}
   type MessageType = {
@@ -27,6 +27,8 @@ const client = await createClient(
     }
     //@ts-ignore
 }
+
+
   const stream_name='betteruptime:website'
 
 async function xadd({url,id}:websiteEvent) {
