@@ -21,7 +21,9 @@ import {
 } from 'lucide-react';
 import axios from 'axios';
  
-import {BACKEND_URL} from '@/lib/utils';
+// import {BACKEND_URL} from '@/lib/utils';
+import BACKEND_URL from '@/lib/utils';
+
 
 import Router, { useRouter } from 'next/navigation';
  
