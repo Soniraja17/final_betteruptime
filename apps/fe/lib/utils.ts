@@ -6,4 +6,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 // export const BACKEND_URL="https://final-betteruptime.onrender.com"
-export const BACKEND_URL="http://localhost:3000"
+
+export const BACKEND_URL="https://final-betteruptime-2.onrender.com/"
+// export const BACKEND_URL="http://localhost:3000"
