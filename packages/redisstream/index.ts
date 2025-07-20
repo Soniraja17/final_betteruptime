@@ -4,15 +4,15 @@ import { createClient } from "redis";
  
 
 const client = await createClient(
-  // {
+  {
   
-  //   username: 'default',
-  //   password:  process.env.PASSWORD,
-  //   socket: {
-  //       host: 'redis-18374.c80.us-east-1-2.ec2.redns.redis-cloud.com',
-  //       port: 18374
-  //   }
-  // }
+    username: 'default',
+    password:  process.env.PASSWORD,
+    socket: {
+        host: 'redis-18374.c80.us-east-1-2.ec2.redns.redis-cloud.com',
+        port: 18374
+    }
+  }
   
 )
   .on("error", (err) => console.log("Redis Client Error", err))
