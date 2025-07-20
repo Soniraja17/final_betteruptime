@@ -6,10 +6,10 @@ import { createClient } from "redis";
 const client = await createClient(
   {
   
-    username: 'default',
+    username: process.env.USERNAME,
     password:  process.env.PASSWORD,
     socket: {
-        host: 'redis-18374.c80.us-east-1-2.ec2.redns.redis-cloud.com',
+        host: process.env.HOST,
         port: 18374
     }
   }
