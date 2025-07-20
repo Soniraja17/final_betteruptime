@@ -3,15 +3,16 @@ import { createClient } from "redis";
 
  
 
-const client = await createClient({
+const client = await createClient(
+  // {
   
-    username: 'default',
-    password:  process.env.PASSWORD,
-    socket: {
-        host: 'redis-18374.c80.us-east-1-2.ec2.redns.redis-cloud.com',
-        port: 18374
-    }
-  }
+  //   username: 'default',
+  //   password:  process.env.PASSWORD,
+  //   socket: {
+  //       host: 'redis-18374.c80.us-east-1-2.ec2.redns.redis-cloud.com',
+  //       port: 18374
+  //   }
+  // }
   
 )
   .on("error", (err) => console.log("Redis Client Error", err))
@@ -70,10 +71,25 @@ export async function xreadgroup(consumer_grp:string,worker_id:string): Promise<
 
                 return messages;
             
-        } catch (error) {
-            console.log(error)
-            
         }
+        //  catch (error) {
+        //     console.log(error)
+        catch (error: any) {
+          if (error.message.includes("NOGROUP")) {
+              console.warn("⚠️ Stream or group missing. Recreating...");
+              try {
+                  await client.xGroupCreate(stream_name, consumer_grp, '0', { MKSTREAM: true });
+                  return []; // return empty so loop continues
+              } catch (err) {
+                  console.error("❌ Failed to recreate group:", err);
+              }
+          } else {
+              console.error("❌ xreadgroup failed:", error);
+          }
+          return [];
+        }
+            
+        
         
     
     

@@ -59,9 +59,8 @@ const fetchWebsites = async () => {
       response.data.websites.map((w: any) => ({
         id: w.id,
         url: w.url,
-        status: w.ticks?.[0]?.status === "UP" ? "up" :
-                w.ticks?.[0] ? "down" : "checking",
-        responseTime: w.ticks?.[0]?.response_time_ms || "0",
+        status: w.ticks?.[0]?.status === "UP" ? "up" : w.ticks?.[0] ? "down" : "checking",
+        responseTime: w.ticks?.[0]?.response_time_ms ? `${w.ticks[0].response_time_ms}ms` : "0ms",
         lastChecked: w.ticks?.[0]?.createdAt || Date.now().toString(),
       }))
     );
@@ -72,7 +71,11 @@ const fetchWebsites = async () => {
 
 // Run on first load
 useEffect(() => {
-  fetchWebsites();
+  setInterval(()=>{
+    fetchWebsites();
+  },3000)
+     
+   
 }, []);
 
 
@@ -102,14 +105,11 @@ useEffect(() => {
     
     await fetchWebsites();
      
-
-     
-
-
-
-     
     setNewWebsite({   url: '' });
     setShowAddModal(false);
+  };
+  const handleManualRefresh = () => {
+    fetchWebsites();
   };
 
   const handleDeleteWebsite = (id: string) => {
@@ -194,6 +194,12 @@ useEffect(() => {
           <div className="px-6 py-4 border-b border-gray-700 flex items-center justify-between">
             <h2 className="text-xl font-semibold text-white">Monitored Websites</h2>
             <button
+                onClick={handleManualRefresh}
+                className="bg-gray-700 ml-100 text-white px-4 py-2 rounded-lg hover:bg-gray-600 transition-colors flex items-center space-x-2 disabled:opacity-50"
+              >
+                <span>Refresh</span>
+              </button>
+            <button
               onClick={() => setShowAddModal(true)}
               className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors flex items-center space-x-2"
             >
@@ -239,7 +245,7 @@ useEffect(() => {
                       </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                      {/* <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
                         website.status === 'up' 
                           ? 'bg-green-900 text-green-300' 
                           : 'bg-red-900 text-red-300'
@@ -248,13 +254,33 @@ useEffect(() => {
                           website.status === 'up' ? 'bg-green-400' : 'bg-red-400'
                         }`}></span>
                         {website.status === 'up' ? 'Up' : 'Down'}
-                      </span>
+                      </span> */}
+                       <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          website.status === 'up' 
+                            ? 'bg-green-900 text-green-300' 
+                            : website.status === 'down'
+                            ? 'bg-red-900 text-red-300'
+                            : 'bg-yellow-900 text-yellow-300'
+                        }`}>
+                          <span className={`w-2 h-2 rounded-full mr-1.5 ${
+                            website.status === 'up' 
+                              ? 'bg-green-400' 
+                              : website.status === 'down'
+                              ? 'bg-red-400'
+                              : 'bg-yellow-400'
+                          } ${website.status === 'up' ? 'animate-pulse' : ''}`}>
+        
+                          </span>
+                          {website.status === 'up' ? 'Up' : website.status === 'down' ? 'Down' : 'Checking'}
+                        </span>
                     </td>
                     {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
                       {website.uptime}
                     </td> */}
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-300">
+                     
                       {website.responseTime}
+                      
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-400">
                       {website.lastChecked}
@@ -333,6 +359,7 @@ useEffect(() => {
                 >
                   Cancel
                 </button>
+              
                 <button
                   type="submit"
                   className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
@@ -349,3 +376,9 @@ useEffect(() => {
 }
 
 export default Dashboard;
+
+
+
+
+
+ 
