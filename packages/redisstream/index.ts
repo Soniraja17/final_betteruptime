@@ -63,7 +63,8 @@ export async function xreadgroup(consumer_grp:string,worker_id:string): Promise<
                   key: stream_name,
                   id: '>'
                 }, {
-                  'COUNT': 5
+                  'COUNT': 5,
+                  BLOCK: 5000,
                 }
               );
               //@ts-ignore
