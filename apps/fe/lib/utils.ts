@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 // export const BACKEND_URL="https://final-betteruptime.onrender.com"
 
 const BACKEND_URL=axios.create({
-  baseURL:process.env.BACKEND_URL
+  baseURL:process.env.BACKEND_URI
 })
 
 export default BACKEND_URL;
