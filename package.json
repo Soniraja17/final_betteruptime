@@ -10,10 +10,10 @@
     "check-types": "turbo run check-types",
     "dbgenerate":"cd packages/store && npx prisma generate && cd ../..",
     "migrate": "prisma migrate deploy",
-    "api": "bun apps/api/index.ts",
-      "worker": "bun ../worker/index.ts",
-      "pusher": "bun ../pusher/index.ts",
-      "start": "bun run api & bun run worker & bun run pusher"
+     "api": "bun apps/api/index.ts",
+    "worker": "bun apps/worker/index.ts",
+    "pusher": "bun apps/pusher/index.ts",
+    "start": "bun run api & bun run worker & bun run pusher"
      
   },
   "devDependencies": {
