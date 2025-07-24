@@ -20,7 +20,7 @@ import { BACKEND_URL } from '@/lib/utils';
  
 import React, { useState } from 'react';
 import Link from 'next/link';
-import {  Eye, EyeOff } from 'lucide-react';
+import {  AlertCircle, CheckCircle, Clock, Eye, EyeOff, Plus } from 'lucide-react';
 
 import { 
   Monitor, 
@@ -55,7 +55,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMenuOpen: boolean
           </div>
           
           <nav className="hidden md:flex items-center space-x-8">
-            <a href="#features" className="text-gray-300 hover:text-blue-400 transition-colors">Features</a>
+            <a href="#Demo" className="text-gray-300 hover:text-blue-400 transition-colors">Demo</a>
             <a href="#pricing" className="text-gray-300 hover:text-blue-400 transition-colors">Pricing</a>
             <a href="#about" className="text-gray-300 hover:text-blue-400 transition-colors">About</a>
             <a href="#contact" className="text-gray-300 hover:text-blue-400 transition-colors">Contact</a>
@@ -86,7 +86,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMenuOpen: boolean
       {mobileMenuOpen && (
         <div className="md:hidden bg-gray-900 border-t border-gray-700">
           <div className="px-4 py-2 space-y-1">
-            <a href="#features" className="block px-3 py-2 text-gray-300 hover:text-blue-400">Features</a>
+            <a href="#Demo" className="block px-3 py-2 text-gray-300 hover:text-blue-400">Demo</a>
             <a href="#pricing" className="block px-3 py-2 text-gray-300 hover:text-blue-400">Pricing</a>
             <a href="#about" className="block px-3 py-2 text-gray-300 hover:text-blue-400">About</a>
             <a href="#contact" className="block px-3 py-2 text-gray-300 hover:text-blue-400">Contact</a>
@@ -109,6 +109,7 @@ function Header({ mobileMenuOpen, setMobileMenuOpen }: { mobileMenuOpen: boolean
 
 // Hero Component
 function Hero() {
+  const router=useRouter();
   return (
     <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-blue-900 overflow-hidden">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width=%2260%22 height=%2260%22 viewBox=%220 0 60 60%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cg fill=%22none%22 fill-rule=%22evenodd%22%3E%3Cg fill=%22%23ffffff%22 fill-opacity=%220.05%22%3E%3Ccircle cx=%2230%22 cy=%2230%22 r=%223%22/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-40"></div>
@@ -132,12 +133,21 @@ function Hero() {
           </p>
           
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4 mb-12">
-            <button className="group bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center">
+            <button 
+            onClick={()=>{
+
+              router.push("/signup")
+            }}
+
+            className="group bg-blue-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl flex items-center">
               Start Free Trial
               <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+
             </button>
             
-            <button className="group flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors">
+            <button 
+            onClick={() => document.getElementById("Demo")?.scrollIntoView({ behavior: 'smooth' })}
+            className="group flex items-center space-x-2 text-gray-300 hover:text-blue-400 transition-colors">
               <div className="w-12 h-12 bg-gray-800 rounded-full flex items-center justify-center shadow-md group-hover:shadow-lg transition-shadow border border-gray-600">
                 <Play className="w-5 h-5 ml-1" />
               </div>
@@ -166,79 +176,423 @@ function Hero() {
 }
 
 // Features Component
-function Features() {
-  const features = [
-    {
-      icon: Activity,
-      title: 'Real-time Monitoring',
-      description: 'Monitor your websites and APIs every 30 seconds from multiple locations worldwide.',
-      color: 'bg-blue-500'
-    },
-    {
-      icon: Bell,
-      title: 'Instant Alerts',
-      description: 'Get notified via email, SMS, Slack, or webhook the moment your site goes down.',
-      color: 'bg-green-500'
-    },
-    {
-      icon: Globe,
-      title: 'Global Network',
-      description: 'Monitor from 15+ locations worldwide to ensure global accessibility.',
-      color: 'bg-purple-500'
-    },
-    {
-      icon: Shield,
-      title: 'SSL Monitoring',
-      description: 'Track SSL certificate expiration dates and get alerts before they expire.',
-      color: 'bg-orange-500'
-    },
-    {
-      icon: Zap,
-      title: 'Performance Tracking',
-      description: 'Monitor response times, page load speeds, and overall performance metrics.',
-      color: 'bg-red-500'
-    },
-    {
-      icon: BarChart3,
-      title: 'Detailed Analytics',
-      description: 'Get comprehensive reports and insights about your website performance.',
-      color: 'bg-indigo-500'
+// function Features() {
+//   const features = [
+//     {
+//       icon: Activity,
+//       title: 'Real-time Monitoring',
+//       description: 'Monitor your websites and APIs every 30 seconds from multiple locations worldwide.',
+//       color: 'bg-blue-500'
+//     },
+//     {
+//       icon: Bell,
+//       title: 'Instant Alerts',
+//       description: 'Get notified via email, SMS, Slack, or webhook the moment your site goes down.',
+//       color: 'bg-green-500'
+//     },
+//     {
+//       icon: Globe,
+//       title: 'Global Network',
+//       description: 'Monitor from 15+ locations worldwide to ensure global accessibility.',
+//       color: 'bg-purple-500'
+//     },
+//     {
+//       icon: Shield,
+//       title: 'SSL Monitoring',
+//       description: 'Track SSL certificate expiration dates and get alerts before they expire.',
+//       color: 'bg-orange-500'
+//     },
+//     {
+//       icon: Zap,
+//       title: 'Performance Tracking',
+//       description: 'Monitor response times, page load speeds, and overall performance metrics.',
+//       color: 'bg-red-500'
+//     },
+//     {
+//       icon: BarChart3,
+//       title: 'Detailed Analytics',
+//       description: 'Get comprehensive reports and insights about your website performance.',
+//       color: 'bg-indigo-500'
+//     }
+//   ];
+
+//   return (
+//     <section id="features" className="py-20 bg-gray-900">
+//       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+//         <div className="text-center mb-16">
+//           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+//             Everything You Need to Monitor Your Website
+//           </h2>
+//           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+//             Comprehensive monitoring tools to keep your website running smoothly and your users happy.
+//           </p>
+//         </div>
+        
+//         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+//           {features.map((feature, index) => (
+//             <div 
+//               key={index}
+//               className="group p-8 rounded-xl border border-gray-700 bg-gray-800 hover:border-blue-500 hover:shadow-lg transition-all duration-300"
+//             >
+//               <div className={`w-12 h-12 ${feature.color} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
+//                 <feature.icon className="w-6 h-6 text-white" />
+//               </div>
+//               <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
+//               <p className="text-gray-300 leading-relaxed">{feature.description}</p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// }
+
+///////////////////////////////////////////////////////////////////////////////////////
+
+
+
+function AddWebsiteModal({ isOpen, onClose, onAdd }: { 
+  isOpen: boolean; 
+  onClose: () => void; 
+  onAdd: (website: any) => void;
+}) {
+  const [url, setUrl] = useState('');
+  // const [name, setName] = useState('');
+  // const [interval, setInterval] = useState('5');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (url) {
+      const newWebsite = {
+        id: Date.now(),
+       
+        url,
+        status: 'up',
+        responseTime: Math.floor(Math.random() * 500) + 200,
+        uptime: 99.9,
+        lastChecked: new Date(),
+      
+      };
+      onAdd(newWebsite);
+      setUrl('');
+    
+      setInterval('5');
+      onClose();
     }
-  ];
+  };
+
+  if (!isOpen) return null;
 
   return (
-    <section id="features" className="py-20 bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-            Everything You Need to Monitor Your Website
-          </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            Comprehensive monitoring tools to keep your website running smoothly and your users happy.
-          </p>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+      <div className="bg-gray-800 rounded-xl p-6 w-full max-w-md mx-4 border border-gray-700">
+        <div className="flex items-center justify-between mb-6">
+          <h3 className="text-xl font-semibold text-white">Add Website to Monitor</h3>
+          <button 
+            onClick={onClose}
+            className="text-gray-400 hover:text-white transition-colors"
+          >
+            <X className="w-6 h-6" />
+          </button>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {features.map((feature, index) => (
-            <div 
-              key={index}
-              className="group p-8 rounded-xl border border-gray-700 bg-gray-800 hover:border-blue-500 hover:shadow-lg transition-all duration-300"
+        <form onSubmit={handleSubmit} className="space-y-4">
+          {/* <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Website Name
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="My Website"
+              className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div> */}
+          
+          <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Website URL
+            </label>
+            <input
+              type="url"
+              value={url}
+              onChange={(e) => setUrl(e.target.value)}
+              placeholder="https://example.com"
+              className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+            />
+          </div>
+          
+          {/* <div>
+            <label className="block text-sm font-medium text-gray-300 mb-2">
+              Check Interval
+            </label>
+            <select
+              value={interval}
+              onChange={(e) => setInterval(e.target.value)}
+              className="w-full px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <div className={`w-12 h-12 ${feature.color} rounded-lg flex items-center justify-center mb-6 group-hover:scale-110 transition-transform`}>
-                <feature.icon className="w-6 h-6 text-white" />
-              </div>
-              <h3 className="text-xl font-semibold text-white mb-3">{feature.title}</h3>
-              <p className="text-gray-300 leading-relaxed">{feature.description}</p>
-            </div>
-          ))}
+              <option value="1">Every 1 minute</option>
+              <option value="5">Every 5 minutes</option>
+              <option value="10">Every 10 minutes</option>
+              <option value="30">Every 30 minutes</option>
+            </select>
+          </div> */}
+          
+          <div className="flex space-x-3 pt-4">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 px-4 py-2 text-gray-300 border border-gray-600 rounded-lg hover:bg-gray-700 transition-colors"
+            >
+              Cancel
+            </button>
+            <button
+              type="submit"
+              className="flex-1 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            >
+              Add Website
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// Website Status Card Component
+function WebsiteStatusCard({ website, onDelete }: { 
+  website: any; 
+  onDelete: (id: number) => void;
+}) {
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'up': return 'text-green-500';
+      case 'down': return 'text-red-500';
+      case 'warning': return 'text-yellow-500';
+      default: return 'text-gray-500';
+    }
+  };
+
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'up': return <CheckCircle className="w-5 h-5" />;
+      case 'down': return <AlertCircle className="w-5 h-5" />;
+      case 'warning': return <Clock className="w-5 h-5" />;
+      default: return <Activity className="w-5 h-5" />;
+    }
+  };
+
+  return (
+    <div className="bg-gray-800 rounded-lg p-4 border border-gray-700 hover:border-gray-600 transition-colors">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center space-x-3">
+          <div className={`${getStatusColor(website.status)}`}>
+            {getStatusIcon(website.status)}
+          </div>
+          <div>
+            <h3 className="text-base font-medium text-white">{website.name}</h3>
+            <p className="text-gray-400 text-xs">{website.url}</p>
+          </div>
+        </div>
+        <button 
+          onClick={() => onDelete(website.id)}
+          className="text-gray-400 hover:text-red-400 transition-colors"
+        >
+          <X className="w-4 h-4" />
+        </button>
+      </div>
+      
+      <div className="grid grid-cols-3 gap-3">
+        <div className="text-center">
+          <div className="text-lg font-semibold text-white">
+            {website.responseTime}ms
+          </div>
+          <div className="text-xs text-gray-400">Response</div>
+        </div>
+        <div className="text-center">
+          <div className="text-lg font-semibold text-green-500">
+            {website.uptime}%
+          </div>
+          <div className="text-xs text-gray-400">Uptime</div>
+        </div>
+        <div className="text-center">
+          <div className="text-lg font-semibold text-blue-500">
+          <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          website.status === 'up' 
+                            ? 'bg-green-900 text-green-300' 
+                            : website.status === 'down'
+                            ? 'bg-red-900 text-red-300'
+                            : 'bg-yellow-900 text-yellow-300'
+                         }`}>
+                          <span className={`w-2 h-2 rounded-full mr-1.5 ${
+                            website.status === 'up' 
+                              ? 'bg-green-400' 
+                              : website.status === 'down'
+                              ? 'bg-red-400'
+                              : 'bg-yellow-400'
+                          } ${website.status === 'up' ? 'animate-pulse' : ''}`}>
+        
+                          </span>
+                          {website.status === 'up' ? 'online' : website.status === 'down' ? 'offline' : 'Checking'}
+                        </span>
+            
+            
+          </div>
+          <div className="text-xs text-gray-400">Status</div>
         </div>
       </div>
+    </div>
+  );
+}
+
+// Demo Dashboard Component
+function DemoSection() {
+  const [websites, setWebsites] = useState([
+    {
+      id: 1,
+      // name: 'My E-commerce Store',
+      url: 'https://mystore.com',
+      status: 'up',
+      responseTime: 245,
+      uptime: 99.9,
+      lastChecked: new Date(),
+      // interval: 5
+    },
+    {
+      id: 2,
+      // name: 'Company Blog',
+      url: 'https://blog.company.com',
+      status: 'up',
+      responseTime: 189,
+      uptime: 99.7,
+      lastChecked: new Date(),
+      // interval: 10
+    },
+    {
+      id: 3,
+      // name: 'API Endpoint',
+      url: 'https://api.service.com',
+      status: 'warning',
+      responseTime: 1245,
+      uptime: 98.5,
+      lastChecked: new Date(),
+      // interval: 1
+    }
+  ]);
+  
+  const [showAddModal, setShowAddModal] = useState(false);
+
+  const addWebsite = (website: any) => {
+    setWebsites([...websites, website]);
+  };
+
+  const deleteWebsite = (id: number) => {
+    setWebsites(websites.filter(w => w.id !== id));
+  };
+
+  const totalUptime = websites.length > 0 
+    ? (websites.reduce((sum, w) => sum + w.uptime, 0) / websites.length).toFixed(1)
+    : '0.0';
+
+  const avgResponseTime = websites.length > 0
+    ? Math.floor(websites.reduce((sum, w) => sum + w.responseTime, 0) / websites.length)
+    : 0;
+
+  return (
+    <section className="py-20 bg-gray-900">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <div className="inline-flex items-center px-4 py-2 bg-blue-900/50 text-blue-300 rounded-full text-sm font-medium mb-6">
+            <Play className="w-4 h-4 mr-2" />
+            Interactive Demo
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            See UptimeWatch in Action
+          </h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-8">
+            Try our monitoring dashboard below. Add websites, see their status, and experience how easy it is to keep your sites monitored.
+          </p>
+        </div>
+
+        {/* Demo Dashboard */}
+        <div className="bg-gray-800 rounded-xl p-4 border border-gray-700">
+          {/* Dashboard Header */}
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h3 className="text-xl font-bold text-white">Your Websites</h3>
+            </div>
+            
+            <button
+              onClick={() => setShowAddModal(true)}
+              className="inline-flex items-center px-3 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm"
+            >
+              <Plus className="w-4 h-4 mr-2" />
+              Add Site
+            </button>
+          </div>
+
+          {/* Website Cards */}
+          {websites.length > 0 ? (
+            <div className="space-y-3">
+              {websites.map((website) => (
+                <WebsiteStatusCard 
+                  key={website.id} 
+                  website={website} 
+                  onDelete={deleteWebsite}
+                />
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <Monitor className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+              <h3 className="text-lg font-medium text-gray-400 mb-2">No websites yet</h3>
+              <p className="text-gray-500 mb-4">Add your first website to start monitoring</p>
+              <button
+                onClick={() => setShowAddModal(true)}
+                className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+              >
+                <Plus className="w-5 h-5 mr-2" />
+                Add Website
+              </button>
+            </div>
+          )}
+        </div>
+
+        <div className="mt-4 text-center">
+          <div className="inline-flex items-center px-4 py-2 bg-yellow-900/20 text-yellow-300 rounded-lg text-sm">
+            <AlertCircle className="w-4 h-4 mr-2" />
+            This is a demo dashboard. Real monitoring starts with your free trial.
+          </div>
+        </div>
+      </div>
+
+      <AddWebsiteModal 
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onAdd={addWebsite}
+      />
     </section>
   );
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 // Pricing Component
 function Pricing() {
+  const router=useRouter();
   const plans = [
     {
       name: 'Starter',
@@ -337,6 +691,9 @@ function Pricing() {
               </ul>
               
               <button 
+              onClick={()=>{
+                router.push("/signup")
+              }}
                 className={`w-full py-3 px-4 rounded-lg font-semibold transition-colors ${
                   plan.popular 
                     ? 'bg-blue-600 text-white hover:bg-blue-700' 
@@ -437,6 +794,7 @@ function Testimonials() {
 
 // CTA Component
 function CTA() {
+  const router=useRouter();
   return (
     <section className="py-20 bg-gradient-to-r from-blue-700 to-purple-700">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -448,7 +806,11 @@ function CTA() {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-          <button className="group bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg flex items-center">
+          <button 
+          onClick={()=>{
+            router.push("/signup")
+          }}
+          className="group bg-white text-blue-600 px-8 py-4 rounded-lg text-lg font-semibold hover:bg-gray-100 transition-colors shadow-lg flex items-center">
             Start Your Free Trial
             <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
           </button>
@@ -547,7 +909,11 @@ export default function HomePage() {
     <div className="min-h-screen">
       <Header mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
       <Hero />
-      <Features />
+      <div id="Demo">
+      <DemoSection/>
+
+      </div>
+      {/* <Features /> */}
       <Pricing />
       <Testimonials />
       <CTA />

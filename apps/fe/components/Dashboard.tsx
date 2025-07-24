@@ -265,7 +265,7 @@ useEffect(() => {
                             : website.status === 'down'
                             ? 'bg-red-900 text-red-300'
                             : 'bg-yellow-900 text-yellow-300'
-                        }`}>
+                         }`}>
                           <span className={`w-2 h-2 rounded-full mr-1.5 ${
                             website.status === 'up' 
                               ? 'bg-green-400' 
