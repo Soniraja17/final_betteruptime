@@ -92,7 +92,7 @@ app.post("/user/signup",async(req,res)=>{
     }
     catch(e){
         console.log(e)
-        res.status(403).send("")
+        res.status(403).send("database not connected")
     }
 
     

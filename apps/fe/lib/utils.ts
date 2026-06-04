@@ -15,6 +15,7 @@ export function cn(...inputs: ClassValue[]) {
 // export default BACKEND_URL;
 
 export const BACKEND_URL=process.env.NEXT_PUBLIC_BACKEND_URI
+//export const BACKEND_URL="http://localhost:3000"
 
 // const BACKEND_URL=axios.create({
 //   baseURL:process.env.NEXT_PUBLIC_BACKEND_URI
